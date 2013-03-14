@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block corpo %}
+
+<h1>remover</h1>
+
+<h2>{{ item.titulo }}</h2>
+<p>criado: {{ item.criado }}<br />
+editado: {{ item.editado }}</p>
+<pre>{{ item.descricao }}</pre>
+
+<form action="" method="post">
+{% csrf_token %}
+	<p><button type="submit"> remover</button> ou <a href="/">cancelar</a></p>
+</form>
+
+{% endblock %}

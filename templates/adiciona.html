@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block corpo %}
+
+<!--        {{ form.titulo }} -->
+<!--        <textarea id="id_descricao" rows="10" cols="40" name="descricao">{{ data.descricao }}</textarea> -->
+        <!-- {{ form.descricao }} -->
+
+<script type="text/javascript">
+	$("document").ready(
+		function() {
+			$('#focus_titulo').focus();
+	});
+</script>
+
+<div id="addNew">
+
+<form action="" method="post" class="contactform">
+	{% csrf_token %}
+    {{ form.non_field_errors }}
+    
+    <div class="fieldWrapper">
+        {{ form.titulo.errors }}
+        <label for="id_titulo">titulo</label>
+         <input class="input" id="id_titulo" type="text" name="titulo" maxlength="30" value="{{ data.titulo }}" />
+    </div>
+    
+    <div class="fieldWrapper">
+        {{ form.descricao.errors }}
+        <label for="id_descricao">descricao / url</label>
+        <input class="input" id="id_descricao" type="text" name="descricao" maxlength="30" value="{{ data.descricao }}" />
+    </div>
+    
+    <div class="fieldWrapper">
+        {{ form.descricao.errors }}
+        <input type="hidden" value="{{ dados.hash_code_captcha }}" name="hash_code_captcha">
+        <label for="captcha">desculpe</label>
+        <img src="/media/imagens/temp/{{ dados.captcha_img_name }}"> <input class="input" type="text" name="imgtext" size="10" >
+    </div>
+
+    <input class="button" type="submit" value="adicionar" />
+    
+</form>
+</div>
+{% endblock %}

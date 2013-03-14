@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% block corpo %}
+
+<script type='text/javascript'>
+// depois coloco isso tudo em um arquivo .js
+// 'e uma funcao anonima como sempre
+
+	$(function(){
+	});	
+
+	var up_voted = '{{ voteuser.up_voted }}'.replace(/u&#39;|&#39;|\[|\]/g, '')
+	var up_list = up_voted.split(',').toString();
+	var down_voted = '{{ voteuser.down_voted }}'.replace(/u&#39;|&#39;|\[|\]/g, '')
+	var down_list = down_voted.split(',').toString();
+
+	function voteUpPrint(this_id){
+		if (up_list.indexOf(this_id.toString()) != -1) {
+			$("#up-"+this_id).css('background', 'green');
+			$("#score-"+this_id).attr('status', 'up');
+		} else {
+			$("#up-"+this_id).css('background', 'white');
+			$("#up-"+this_id).unbind('click', voteUp).bind('click', voteUp);
+		}
+	}
+
+	function voteDownPrint(this_id){
+		if (down_list.indexOf(this_id.toString()) != -1) {
+			$("#down-"+this_id).css('background', 'red');
+			$("#score-"+this_id).attr('status', 'down');
+		} else {
+			$("#down-"+this_id).css('background', 'white');	
+			$("#down-"+this_id).unbind('click', voteDown).bind('click', voteDown);
+		}
+	}
+
+	function voteUp(){	
+		this_id = $(this).attr("name");	
+		
+		if ($("#score-"+this_id).attr('status') != 'up')
+			$.get("/c/" + this_id + "/up", function() {
+	
+				if ($("#score-"+this_id).attr('status') != 'none')
+					$("#score-"+this_id).attr('down', parseInt($("#score-"+this_id).attr('down'))-1);
+				$("#score-"+this_id).attr('up', parseInt($("#score-"+this_id).attr('up'))+1);
+				$("#score-"+this_id).attr('status', 'up');
+	
+				$("#score-"+this_id).html(parseInt($("#score-"+this_id).attr('up')) - parseInt($("#score-"+this_id).attr('down')));
+				
+				$("#up-"+this_id).unbind('click', voteUp);
+				$("#up-"+this_id).css('background', 'green');
+				$("#down-"+this_id).unbind('click', voteDown).bind('click', voteDown);
+				$("#down-"+this_id).css('background', 'white');
+			});
+	}
+		
+	function voteDown(){
+		this_id = $(this).attr("name");
+		
+		if ($("#score-"+this_id).attr('status') != 'down')
+			$.get("/c/" + this_id + "/down", function() {
+	
+				if ($("#score-"+this_id).attr('status') != 'none')
+					$("#score-"+this_id).attr('up', parseInt($("#score-"+this_id).attr('up'))-1);
+				$("#score-"+this_id).attr('down', parseInt($("#score-"+this_id).attr('down'))+1);
+				$("#score-"+this_id).attr('status', 'down');
+	
+				$("#score-"+this_id).html(parseInt($("#score-"+this_id).attr('up')) - parseInt($("#score-"+this_id).attr('down')));
+	
+				$("#down-"+this_id).unbind('click', voteDown);
+				$("#down-"+this_id).css('background', 'red');
+				$("#up-"+this_id).unbind('click', voteUp).bind('click', voteUp);
+				$("#up-"+this_id).css('background', 'white');		
+			});
+		}
+
+</script>
+
+<div id="lista">
+
+check
+{{ voteuser.up_voted }}
+{{ voteuser.down_voted }}
+
+	{% for item in lista_itens %}	
+	<script type="text/javascript">
+		$(function(){
+			{% if user.is_authenticated %}
+			voteUpPrint({{ item.id }});
+			voteDownPrint({{ item.id }});
+			{% endif %}
+			var score = {{ item.up_votes }} - {{ item.down_votes }};
+			$("#score-{{ item.id }}").html(parseInt(score));
+			$("#score-{{ item.id }}").attr('value', parseInt(score));
+			
+			var this_id = {{ item.id }};
+			if (up_list.indexOf(this_id.toString()) != -1)
+				$("#score-{{ item.id }}").attr('status', 'up');
+			else if (down_list.indexOf(this_id.toString()) != -1)
+				$("#score-{{ item.id }}").attr('status', 'down');
+			else
+				$("#score-{{ item.id }}").attr('status', 'none');
+		});
+	</script>
+		
+	<div class="horizontal">
+	
+	<div class="left">	
+		<ul class="itemsListaEsquerda">
+			<li class="esquerda"><a class="vote_up" name="{{ item.id }}" value="{{ item.up_votes }}" href="#" id="up-{{ item.id }}" onClick="return false;">/\</a></li>
+			<li class="esquerda"><div id="score-{{ item.id }}" value="" up="{{ item.up_votes }}" down="{{ item.down_votes }}" status=""></div></li>
+			<li class="esquerda"><a class="vote_down" name="{{ item.id }}" value="{{ item.down_votes }}" href="#" id="down-{{ item.id }}"  onClick="return false;">\/</a></li>
+		</ul>
+	</div>
+	
+	<div class="right">
+		<ul class="itemsListaDireita">
+			<li class="direitaTitulo"><a href="{{ item.descricao }}">{{ item.titulo }}</a></li>
+			<li class="direita">enviado <abbr class="timeago" title="{{ item.criado|date:'Y-m-d' }}T{{ item.criado|date:'h:m:s' }}-02:00"></abbr> por {{ item.usuario }}</li>
+			<li class="direita"><a href="/c/{{ item.id }}/">{{ item.n_comentarios }} comentario(s)</a></li>
+		</ul>
+	</div>
+	<!-- {{ item.criado|date:'d/m/Y - h:m:s' }} -->
+	</div>		
+	{% empty %}
+		<li>sem itens na lista</li>
+	{% endfor %}
+
+</div> <!-- div da id lista -->
+
+{% endblock %}

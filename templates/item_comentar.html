@@ -1,0 +1,15 @@
+<!-- adicionando comentario -->
+
+<form action="comentar/{{ papai }}" method="post">
+	{% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="fieldWrapper">
+        {{ form.titulo.errors }}
+    </div>
+    <div class="fieldWrapper">
+        {{ form.descricao.errors }}
+        <label for="id_comentario">comentario:</label>
+        <textarea id="id_comentario" rows="10" cols="40" name="comentario">{{ data.comentario }}</textarea>
+    </div>
+    <input type="submit" value="adicionar" />
+</form>

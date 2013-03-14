@@ -1,0 +1,180 @@
+<!-- deixei esse esquema so para testar mesmo -->
+<!--
+<script type="text/javascript" src="/media/js/jquery.timeago.js"></script>
+<script type="text/javascript" src="/media/js/jquery.min.js"></script>
+-->
+<script type="text/javascript">
+
+var up_voted_c = '{{ voteuser_c.up_voted_c }}'.replace(/u&#39;|&#39;|\[|\]/g, '')
+var down_voted_c = '{{ voteuser_c.down_voted_c }}'.replace(/u&#39;|&#39;|\[|\]/g, '')
+var up_list_c = up_voted_c.split(',').toString();
+var down_list_c = down_voted_c.split(',').toString();
+
+function voteUpPrintC(this_id_c){
+	if (up_list_c.indexOf(this_id_c.toString()) != -1) {
+		$("#up_c-"+this_id_c).css('background', 'green');
+		$("#score_c-"+this_id_c).attr('status', 'up');
+	} else {
+		$("#up_c-"+this_id_c).css('background', 'white');
+		$("#up_c-"+this_id_c).unbind('click', voteUpC).bind('click', voteUpC);
+	}
+}
+
+function voteDownPrintC(this_id_c){
+	if (down_list_c.indexOf(this_id_c.toString()) != -1) {
+		$("#down_c-"+this_id_c).css('background', 'red');
+		$("#score_c-"+this_id_c).attr('status', 'down');
+	} else {
+		$("#down_c-"+this_id_c).css('background', 'white');	
+		$("#down_c-"+this_id_c).unbind('click', voteDownC).bind('click', voteDownC);
+	}
+}
+
+function voteUpC(){	
+	this_id_c = $(this).attr("name");	
+	if ($("#score_c-"+this_id_c).attr('status') != 'up')
+		$.get("/c/" + this_id_c + "/up_c", function() {
+			if ($("#score_c-"+this_id_c).attr('status') != 'none')
+				$("#score_c-"+this_id_c).attr('down', parseInt($("#score_c-"+this_id_c).attr('down'))-1);
+			$("#score_c-"+this_id_c).attr('up', parseInt($("#score_c-"+this_id_c).attr('up'))+1);
+			$("#score_c-"+this_id_c).attr('status', 'up');
+			$("#score_c-"+this_id_c).html(parseInt($("#score_c-"+this_id_c).attr('up')) - parseInt($("#score_c-"+this_id_c).attr('down')));
+			$("#up_c-"+this_id_c).unbind('click', voteUpC);
+			$("#up_c-"+this_id_c).css('background', 'green');
+			$("#down_c-"+this_id_c).unbind('click', voteDownC).bind('click', voteDownC);
+			$("#down_c-"+this_id_c).css('background', 'white');
+		});
+}
+	
+function voteDownC(){
+	this_id_c = $(this).attr("name");
+	if ($("#score_c-"+this_id_c).attr('status') != 'down')
+		$.get("/c/" + this_id_c + "/down_c", function() {
+			if ($("#score_c-"+this_id_c).attr('status') != 'none')
+				$("#score_c-"+this_id_c).attr('up', parseInt($("#score_c-"+this_id_c).attr('up'))-1);
+			$("#score_c-"+this_id_c).attr('down', parseInt($("#score_c-"+this_id_c).attr('down'))+1);
+			$("#score_c-"+this_id_c).attr('status', 'down');
+			$("#score_c-"+this_id_c).html(parseInt($("#score_c-"+this_id_c).attr('up')) - parseInt($("#score_c-"+this_id_c).attr('down')));
+			$("#down_c-"+this_id_c).unbind('click', voteDownC);
+			$("#down_c-"+this_id_c).css('background', 'red');
+			$("#up_c-"+this_id_c).unbind('click', voteUpC).bind('click', voteUpC);
+			$("#up_c-"+this_id_c).css('background', 'white');		
+		});
+}
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+	function showForm(){
+		this_id = $(this).attr("name");	
+		$('#replyButton-'+ this_id).unbind('click', showForm);
+		$('#replyButton-'+ this_id).unbind('click', hideForm).bind('click', hideForm);
+		$("#reply-"+this_id).html("<form action='comentar/"+this_id+"' method='post' id='form-"+this_id+"'>"
+//		"<div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='"+ csrftoken +"' id='form-csrf' /></div>"+
+		+"{% csrf_token %}"
+		+"<div class='fieldWrapper'>"
+			+"<label for='id_comentario'></label>"
+			+"<textarea id='comentario-"+this_id+"' class='comentario-"+this_id+"' rows='10' cols='40' name='comentario'></textarea>"
+		+"</div>"
+		+"<input type='submit' value='adicionar' />"
+		+"</form>");
+		$("#comentario-"+this_id).focus();
+	}
+
+	function hideForm(){
+		this_id = $(this).attr("name");	
+		$('#replyButton-'+ this_id).unbind('click', hideForm);
+		$('#replyButton-'+ this_id).unbind('click', showForm).bind('click', showForm);
+		$("#reply-"+this_id).html('');
+	}
+
+	var csrftoken = getCookie('csrftoken');
+	$("#form-csrf").attr('value', csrftoken);
+
+</script>
+
+<div id="comments">
+
+{{ voteuser_c.up_voted_c }}
+{{ voteuser_c.down_voted_c }}
+{% csrf_token %}
+
+<!-- reply to main post -->
+<p><a href="#" onClick="return false;" id='replyButton-0' name='0'>comentar</a><div id="reply-0"></div></p>
+<div id='papai-0'></div>
+
+<script type="text/javascript">
+	$(function(){
+		$('#replyButton-0').unbind('click', showForm).bind('click', showForm);
+		$('#papai-0').css('border','0px');
+		$('#papai-0').css('padding','0px');
+		$('#papai-0').css('float','left').css('clear','both');
+	});
+</script>
+
+	{% for comentario in lista_comentarios %}
+	<script type="text/javascript">
+	$(function(){
+		$('#papai-{{ comentario.papai_id }}').append("<div id='papai-{{ comentario.id }}'><div id='horizontal_c'>"
+			+"<div id='left_c'>	"
+			+"	<ul id='itemsListaEsquerda_c'>"
+			+"		<li id='esquerda_c'><a class='vote_up_c' name='{{ comentario.id }}' value='{{ comentario.up_votes }}' href='#' id='up_c-{{ comentario.id }}' onClick='return false;'>/\\</a></li>"
+			+"		<li id='esquerda_c'><div value='' up='{{ comentario.up_votes }}' down='{{ comentario.down_votes }}' status='' id='score_c-{{ comentario.id }}'></div></li>"
+			+"		<li id='esquerda_c'><a class='vote_down_c' name='{{ comentario.id }}' value='{{ comentario.down_votes }}' href='#' id='down_c-{{ comentario.id }}' onClick='return false;'>\\/</a></li>"
+			+"	</ul>"
+			+"</div>"
+			+"<div id='right_c'>"
+			+"	<ul id='itemsListaDireita_c'>"
+			+"		<li id='direita_c'>{{ comentario.usuario }} <abbr class='timeago' title='{{ comentario.criado|date:"Y-m-d" }}T{{ comentario.criado|date:"h:m:s" }}-02:00'></abbr></li>"
+			+"		<li id='direitaTitulo_c'>{{ comentario.comentario }}</li>"
+			+"		<li><a href='#' onClick='return false;' id='replyButton-{{ comentario.id }}' name='{{ comentario.id }}'>comentar</a><br /><div id='reply-{{ comentario.id }}'></div></li>"
+			+"	</ul>"
+			+"</div>"
+			+"</div></div>");
+
+		$('#replyButton-{{ comentario.id }}').unbind('click', showForm).bind('click', showForm);
+		$('#papai-{{ comentario.id }}').css('border-left','1px solid gray');
+		$('#papai-{{ comentario.id }}').css('padding-left','15px').css('float','left').css('clear','both');
+		$('#reply-{{ comentario.id }}').css('padding','1px').css('float','left');
+
+		{% if user.is_authenticated %}
+		voteUpPrintC({{ comentario.id }});
+		voteDownPrintC({{ comentario.id }});
+		{% endif %}
+		var score_c = {{ comentario.up_votes }} - {{ comentario.down_votes }};
+		$("#score_c-{{ comentario.id }}").html(parseInt(score_c));
+		$("#score_c-{{ comentario.id }}").attr('value', parseInt(score_c));
+		
+		var this_id_c = {{ comentario.id }};
+		if (up_list_c.indexOf(this_id_c.toString()) != -1)
+			$("#score_c-{{ comentario.id }}").attr('status', 'up');
+		else if (down_list_c.indexOf(this_id_c.toString()) != -1)
+			$("#score_c-{{ comentario.id }}").attr('status', 'down');		
+		else
+			$("#score_c-{{ comentario.id }}").attr('status', 'none');				
+
+	});
+	</script>
+	
+	{% empty %}
+		<li>sem comentario na lista</li>
+	{% endfor %}
+	<script type="text/javascript">
+	$(function(){
+	  	$("abbr.timeago").timeago();
+	});
+	</script>
+
+</div>

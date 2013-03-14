@@ -1,0 +1,6 @@
+/* importing all css files in just one file */
+
+@import url(reset.css);
+@import url(principal.css);
+
+

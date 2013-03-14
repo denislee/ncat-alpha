@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block corpo %}
+
+<form action="" method="post">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<button type="submit">atualizar</button>
+</form>
+			<a href="/remove/{{ item.id }}/">
+				<img src="{{ MEDIA_URL }}imagens/lixeira.png" />
+			</a>
+
+<p>up_votes: {{ item.up_votes }}<br />
+down_votes: {{ item.down_votes }}</p>
+
+{% endblock %}

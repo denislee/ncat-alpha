@@ -1,0 +1,27 @@
+<div id="loginWindow">
+
+{% if form.errors %}
+	{{ form.non_field_errors }}
+{% endif %}
+<form action="/login/." method="post">
+{% csrf_token %}
+<table>
+	<tr>
+<!--		<td>{{ form.username.label_tag }}</td> -->
+		<td>usuario</td>
+		<td><input class="login-input" id="id_username" type="text" name="username" maxlength="30" /></td>
+<!--		<td>{{ form.username }}</td> -->
+	</tr>
+	<tr>
+<!--		<td>{{ form.password.label_tag }}</td> -->
+		<td>senha</td>
+		<td><input class="login-input" id="id_password" type="password" name="password" /></td>
+<!--		<td>{{ form.password }}</td> -->
+	</tr>
+	<tr>
+		<td class='botao' colspan="2"><button type="submit">logar</button></td>
+	</tr>
+</table>
+</form>
+
+</div>

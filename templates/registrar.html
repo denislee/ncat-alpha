@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block corpo %}
+{% if form.errors %}
+	{{ form.non_field_errors }}
+{% endif %}
+
+<style>
+
+</style>
+
+<div id="register">
+
+<form action="." method="post" id="contactform">
+
+{% csrf_token %}
+    <div class="fieldWrapper">
+	<label id='rotulo'>usuario</label>
+	<input class="input" id="id_username" type="text" name="username" maxlength="30" value="{{ data.username }}" />
+    </div>
+    
+    <div class="fieldWrapper">
+	<label id='rotulo'>e-mail</label>
+	<input class="input" type="text" name="email" id="id_email" value="{{ data.email }}" />
+    </div>
+    
+    <div class="fieldWrapper">
+	<label id='rotulo'>senha</label>
+	<input class="input" id="id_password1" type="password" name="password1" maxlength="30" />
+	<input class="input" id="id_password2" type="password" name="password2" maxlength="30" />
+    </div>
+    
+    <div class="fieldWrapper">
+	<input type="hidden" value="{{ dados.hash_code_captcha }}" name="hash_code_captcha">
+	<img src="/media/imagens/temp/{{ dados.captcha_img_name }}">
+	<input class="input" type="text" name="imgtext" size="10" >
+    </div>
+	<button class="button" type="submit">cadastrar</button> 
+</form>
+
+</div>
+
+<script type="text/javascript">
+// so para pegar o foco no username, para poder registrar com maior facilidade.
+	$("document").ready( function(){
+		$("#id_username").focus();
+	});
+
+</script>
+
+{% endblock %}
