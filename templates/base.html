@@ -1,14 +1,60 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" >
 
-<script type="text/javascript">
-$("document").ready(
-	function() {
-		$("abbr.timeago").timeago();
-		$('#login-link').unbind('click',getInfoFromServer).bind('click',getInfoFromServer);
-		$('#adicionar').css('border','0px solid black');
-	});
+<head>
+	{% block cabecalho %}
+	<title> neucat </title>
+	{% endblock %}
+	<link type="text/css" rel="stylesheet" href="/m/css/all.css" />
+</head>
 
+<body>
+	<div id="top-bar"></div>
+	<div id="container">
+		<div id="topo">
+			<div id="topo-logo"><a href="/"><img src="/images/logo.png" /></a></div>
+			
+			<div id="mainNav">
+				<div id="login">
+					{% if user.is_authenticated %}
+					<ul id="avmenu">
+						<li><a href="#"><b>{{ user.username }}</b></a></li>
+						<font color="#ccc">|</font>
+						<li><a href="/logout/"><b>logout</b></a></p></li>
+					</ul>
+					{% else %}
+					<ul id="avmenu">
+						<li><a href="#" id="login-link"><b>logar</b></a></li> 
+						<font color=#ccc>|</font>
+						<li><a href="/registrar/"><b>registrar</b></a></li>
+					</ul>	    
+					{% endif %}
+				</div>	
+				<div id="login-options">
+					{% if user.is_authenticated %}
+					<ul id="avmenu">
+						<p><li id="adicionar"><a href="/adiciona/">adicionar</a></li></p>
+					</ul>
+					{% else %}
+					{% endif %}
+				</div>	
+			</div> <!-- div do #mainNav -->
+		</div>
+		
+		<div id="login-box"></div>
+		
+		<div id="container-body">
+			{% block corpo %}
+			<!-- corpo -->
+			{% endblock %}
+			<div id="footer">x | 2012</div>
+		</div> <!-- div do container body -->
+	</div> <!-- div do container -->
+
+	<script type="text/javascript" src="/m/js/jquery.min.js"></script>
+	<script type="text/javascript" src="/m/js/jquery.timeago.js"></script>
+
+<script type="text/javascript">
 /* single click */
 function hideLoginBox () {
 	$('#login-link').unbind('click',hideLoginBox);
@@ -54,60 +100,15 @@ function getInfoFromServer() {
 		url: "/login/",
 		success: postToPage});
 }
+
+$("document").ready(
+	function() {
+		$("abbr.timeago").timeago();
+		$('#login-link').unbind('click',getInfoFromServer).bind('click',getInfoFromServer);
+		$('#adicionar').css('border','0px solid black');
+	});
+
 </script>
-
-<head>
-	{% block cabecalho %}
-	<title> neucat </title>
-	{% endblock %}
-	<link type="text/css" rel="stylesheet" href="/media/css/all.css" />
-</head>
-
-<body>
-	<div id="top-bar"></div>
-	<div id="container">
-		<div id="topo">
-			<div id="topo-logo"><a href="/"><img src="/media/imagens/logo.png" /></a></div>
-			
-			<div id="mainNav">
-				<div id="login">
-					{% if user.is_authenticated %}
-					<ul id="avmenu">
-						<li><a href="#"><b>{{ user.username }}</b></a></li>
-						<font color="#ccc">|</font>
-						<li><a href="/logout/"><b>logout</b></a></p></li>
-					</ul>
-					{% else %}
-					<ul id="avmenu">
-						<li><a href="#" id="login-link"><b>logar</b></a></li> 
-						<font color=#ccc>|</font>
-						<li><a href="/registrar/"><b>registrar</b></a></li>
-					</ul>	    
-					{% endif %}
-				</div>	
-				<div id="login-options">
-					{% if user.is_authenticated %}
-					<ul id="avmenu">
-						<p><li id="adicionar"><a href="/adiciona/">adicionar</a></li></p>
-					</ul>
-					{% else %}
-					{% endif %}
-				</div>	
-			</div> <!-- div do #mainNav -->
-		</div>
-		
-		<div id="login-box"></div>
-		
-		<div id="container-body">
-			{% block corpo %}
-			<!-- corpo -->
-			{% endblock %}
-			<div id="footer">x | 2012</div>
-		</div> <!-- div do container body -->
-	</div> <!-- div do container -->
-
-	<script type="text/javascript" src="/media/js/jquery.min.js"></script>
-	<script type="text/javascript" src="/media/js/jquery.timeago.js"></script>
 
 </body>
 </html>

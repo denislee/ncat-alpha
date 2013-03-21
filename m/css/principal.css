@@ -1,0 +1,426 @@
+/* ========================================================================
+	BODY principal (provavelmente vc nao ira mexer nisso.
+   ======================================================================== */
+	
+body {
+	margin: 0 auto;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#container {
+	margin: 0 auto;
+	position: relative;
+	width: 1000px;
+	color: black;
+	font-family: arial, verdana;
+	font-size: 12px;
+	margin-left: auto;
+	margin-right: auto;			
+}
+	
+#top-bar {
+	width: 100%;
+	height: 16px;
+	background-color: #DDD;
+	padding: 10px;
+	margin-left: 0px;
+	margin-right: 0px;
+	position: absolute;
+	border-bottom: 1px solid #000;
+}
+
+#topo {
+	width: 1000px;
+	height: 36px;
+	background-color: #EEE;
+	padding: 0px; 
+	margin-left: 0px;
+	margin-right: 0px;
+	z-index: 98;
+	position: absolute;
+}
+
+#footer {
+	padding: 20px;
+	text-align: center;
+	clear: both;
+	width: 1000px;
+	border: 0px solid;
+}
+		
+#topo-logo {
+	width: 100px;
+	height: 36px;
+	padding: 0px; 
+	margin-left: 10px;
+	margin-right: 0px;
+	position: absolute;			
+}
+
+/* login stuff ??? */
+			
+#container-body {
+	width: 980px;
+	padding-top: 50px;
+	padding-bottom: 0px;
+	padding-left: 10px;
+	padding-right: 10px;
+	position: absolute;
+	float: left;
+}
+
+#login {
+	text-align: right;
+	float: right; 
+	width: 990px;
+	padding: 0px;
+	position: absolute;
+	margin-top: 13px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+	z-index: -1;
+}
+		
+#login-options {
+	text-align: right;
+	float: right; 
+	width: 200px;
+	padding: 0px;
+	position: absolute;
+	margin-top: 40px;
+	margin-bottom: 0px;
+	margin-left: 780px;
+	margin-right: 0px;
+	z-index: 0;
+}
+
+#login-box {
+	padding-top: 10px;
+	padding-bottom: 0px;
+	padding-left: 15px;
+	padding-right: 10px;
+	color: #FFF;
+	font-family: arial, verdana;
+	font-size: 12px;
+	height: 95px;
+	width: 186px;
+	float: right;
+	margin-left: 788px;
+	margin-right: 0px;
+	margin-top: 36px;
+	text-align: left;
+	position: fixed;
+	background-color: #FFF;
+	visibility: hidden;
+	z-index: 1;
+	border: 1px solid #000;
+}
+		
+/* login.html login */
+
+#loginWindow .login-input {
+	font-family: arial, verdana;
+	font-size: 14px;
+	padding: 3px;
+	width: 125px;
+	border: 1px solid #b9bdc1;
+	color: #797979;
+}
+
+#loginWindow .registrar-input {
+	font-family: arial, verdana;
+	font-size: 14px;
+	padding: 3px;
+	width: 160px;
+	border: 1px solid #b9bdc1;
+	color: #797979;
+}
+
+#loginWindow table {
+	color: #000;
+	font-family: arial, verdana;
+	font-size: 12px;
+}
+#loginWindow #botao {
+	text-align: right;
+}
+
+/* botao nav mainNav */
+	
+#mainNav ul#avmenu {
+	margin: 0px 0;
+	padding: 0;
+	font: 12px Verdana;
+}
+  
+#mainNav ul#avmenu li {
+	display: inline;
+}
+  
+#mainNav ul#avmenu li a {
+	padding: 8px 8px;
+	border-bottom: : 1px solid #000; /* pro FIREFOX */
+	border-right: : : 1px solid #eee; /* pro FIREFOX */
+	border-bottom-width:2px;
+	background-color: #eee;
+	color: #47a;
+	text-decoration: none;
+}
+
+#mainNav ul#avmenu a:hover {
+	background: #fff;
+	color: #58b;
+}
+
+/* adiciona.html addNew */
+
+#addNew label {
+    display: block;
+    float: left; margin-right:15px;
+    margin-right:10px;
+    text-align: left;
+    width: 120px;
+    line-height: 25px;
+    font-size: 12px;
+}
+    
+#addNew .contactform {
+    width: 200px;
+    padding: 20px;
+    background: #f0f0f0;
+    overflow:auto;
+ 
+    /* Border style */
+    border: 1px solid #cccccc;
+}
+    
+#addNew .input {
+    font-family: Arial, Verdana;
+    font-size: 15px;
+    padding: 5px;
+    border: 1px solid #b9bdc1;
+    width: 200px;
+    color: #797979;
+}
+    
+#addNew .button {
+    float: right; margin-left:15px;
+    margin:10px 55px 10px 0;
+    font-weight: bold;
+    line-height: 1;
+    padding: 6px 10px;
+    cursor:pointer;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 -1px 1px #64799e;
+ 
+    /* Background gradient */
+    background: #a5b8da;
+    background: -moz-linear-gradient
+       (top, #a5b8da 0%, #7089b3 100%);
+    background: -webkit-gradient
+       (linear, 0% 0%, 0% 100%,
+       from(#a5b8da), to(#7089b3));
+ 
+    /* Border style */
+    border: 1px solid #5c6f91;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+ 
+    /* Box shadow */
+    -moz-box-shadow: inset 0 1px 0 0 #aec3e5;
+    -webkit-box-shadow: inset 0 1px 0 0 #aec3e5;
+    box-shadow: inset 0 1px 0 0 #aec3e5;
+}
+ 
+/* item.html item */
+
+#item ul.itemsListaEsquerda {
+	width: 22px;
+	list-style-type:none;
+	margin-left: 0px;
+	margin-right: 0px;
+	padding-top: 0px; 
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+#item ul.itemsListaDireita {
+	width: 960px;
+	list-style-type:none;
+	margin-left: 0px;
+	margin-right: 0px;
+	padding-top: 0px; 
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+#item div.horizontal {
+	float: left;
+}
+
+#item div.left {
+	float: left;
+}
+
+#item div.right {
+	float: right;
+}
+
+#item li.esquerda {
+	width: 20px;
+	height: 16px;
+	margin:0;
+	padding:.5em;
+	text-align: center;
+	margin-left: 0px;
+	margin-right: 0px;
+	padding: 0px;	
+}
+
+#item li.direita {
+	width: 600px;
+	height: 12px;
+	margin:0;
+	padding-top: 0px; 
+	padding-bottom: 0px;
+	padding-left: 3px;
+	padding-right: 0px;	
+}
+
+#item li.direitaTitulo {
+	width: 600px;
+	height: 24px;
+	margin:0;
+	font-size: 20px;
+	margin-left: 0px;
+	margin-right: 0px;
+	padding: 0px;
+}
+
+/* item_comentarios.html comentarios */
+
+#comments #itemsListaEsquerda_c ul {
+	border: solid #000 5px;
+}
+
+#comments #itemsListaDireita_c ul {
+	border: solid #000 5px;
+	
+}
+
+#comments div#horizontal_c {
+	width: 100%;
+	clear:both;
+}
+	
+
+#comments ul#itemsListaEsquerda_c {
+	width: 22px;
+	height: 60px;
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px; 
+}
+
+#comments ul#itemsListaDireita_c {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px; 
+}
+
+#comments div#left_c {
+	width: 22px;
+	float: left;
+	position: relative;
+}
+
+#comments div#right_c {
+	border-left: 1px solid #000;
+	padding-left: 24px;
+}
+
+#comments li#esquerda_c {
+	height: 16px;
+	max-width: 22px;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	margin-left: 0px;
+	margin-right: 0px;
+	padding: 0px; 
+	border: 5px;	
+}
+
+#comments li#direita_c {
+	height: 12px;
+	color: gray;
+	padding: 0px; 
+}
+
+#comments li#direitaTitulo_c {
+	font-size: 16px;
+	margin: 0px;
+	padding: 0px; 
+}
+	
+/* lista.html lista */
+
+#lista ul.itemsListaEsquerda {
+	width: 22px;
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px; 
+}
+
+#lista ul.itemsListaDireita {
+	width: 960px;
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px; 
+}
+
+#lista div.horizontal {
+	float: left;
+	clear: both;	
+	margin-bottom: 6px;
+}
+
+#lista div.left {
+	float: left;
+}
+
+#lista div.right {
+	padding-left: 23px;
+}
+
+#lista li.esquerda {
+	width: 20px;
+	height: 16px;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+}
+
+#lista li.direita {
+	height: 12px;
+	color: gray;
+	margin: 0;
+	padding: 0px; 
+}
+
+#lista li.direitaTitulo {
+	height: 24px;
+	margin: 0;
+	font-size: 20px;
+	margin-left: 0px;
+	margin-right: 0px;
+	padding: 0px; 
+}
+
