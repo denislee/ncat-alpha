@@ -5,14 +5,16 @@
 	{% block cabecalho %}
 	<title> neucat </title>
 	{% endblock %}
-	<link type="text/css" rel="stylesheet" href="/m/css/all.css" />
+	<link type="text/css" rel="stylesheet" href="/media/css/all.css" />
 </head>
 
 <body>
+
 	<div id="top-bar"></div>
+
 	<div id="container">
 		<div id="topo">
-			<div id="topo-logo"><a href="/"><img src="/images/logo.png" /></a></div>
+			<div id="topo-logo"><a href="/"><img src="/media/imgs/logo.png" /></a></div>
 			
 			<div id="mainNav">
 				<div id="login">
@@ -51,64 +53,64 @@
 		</div> <!-- div do container body -->
 	</div> <!-- div do container -->
 
-	<script type="text/javascript" src="/m/js/jquery.min.js"></script>
-	<script type="text/javascript" src="/m/js/jquery.timeago.js"></script>
+	<script type="text/javascript" src="/media/js/jquery.min.js"></script>
+	<script type="text/javascript" src="/media/js/jquery.timeago.js"></script>
 
-<script type="text/javascript">
-/* single click */
-function hideLoginBox () {
-	$('#login-link').unbind('click',hideLoginBox);
-	$('#login-link').unbind('click',showLoginBox).bind('click',showLoginBox);
-	$('#login-box').css('visibility','hidden');
-	$('#login-link').css('background','#EEE');
-	$('#login-link').css('border-bottom','1px solid #000');
-	$('#login-link').css('border-top','1px solid #FFF');
-	$('#login-link').css('border-left','1px solid #FFF');
-	$('#login-link').css('border-right','1px solid #FFF');
-	$('#login-link').css('border-bottom-width','30px');
-}
+	<script type="text/javascript">
+	/* single click */
+	function hideLoginBox () {
+		$('#login-link').unbind('click',hideLoginBox);
+		$('#login-link').unbind('click',showLoginBox).bind('click',showLoginBox);
+		$('#login-box').css('visibility','hidden');
+		$('#login-link').css('background','#EEE');
+		$('#login-link').css('border-bottom','1px solid #000');
+		$('#login-link').css('border-top','1px solid #FFF');
+		$('#login-link').css('border-left','1px solid #FFF');
+		$('#login-link').css('border-right','1px solid #FFF');
+		$('#login-link').css('border-bottom-width','30px');
+	}
 
-/* single click */
-function showLoginBox () {
-	$('#login-link').unbind('click',showLoginBox);
-	$('#login-link').unbind('click',hideLoginBox).bind('click',hideLoginBox);
-	$('#login-box').css('visibility','visible');
-	$('#id_username').focus();
-	$('#login-link').css('background','#FFF');
-	$('#login-link').css('border-bottom','1px solid #FFF');
-	$('#login-link').css('border-top','1px solid #000');
-	$('#login-link').css('border-left','1px solid #000');
-	$('#login-link').css('border-right','1px solid #000');
-}
+	/* single click */
+	function showLoginBox () {
+		$('#login-link').unbind('click',showLoginBox);
+		$('#login-link').unbind('click',hideLoginBox).bind('click',hideLoginBox);
+		$('#login-box').css('visibility','visible');
+		$('#id_username').focus();
+		$('#login-link').css('background','#FFF');
+		$('#login-link').css('border-bottom','1px solid #FFF');
+		$('#login-link').css('border-top','1px solid #000');
+		$('#login-link').css('border-left','1px solid #000');
+		$('#login-link').css('border-right','1px solid #000');
+	}
 
-function postToPage(data, status) {
-	$('#login-box').html(data);
-	$('#login-box').css('visibility','visible');
-	$('#login-link').unbind('click',getInfoFromServer);
-	$('#login-link').unbind('click',hideLoginBox).bind('click',hideLoginBox);
-	$('#id_username').focus();
-	$('#login-link').css('background','#FFF');
-	$('#login-link').css('border-bottom','1px solid #FFF');
-	$('#login-link').css('border-top','1px solid #000');
-	$('#login-link').css('border-left','1px solid #000');
-	$('#login-link').css('border-right','1px solid #000');
-}
+	function postToPage(data, status) {
+		$('#login-box').html(data);
+		$('#login-box').css('visibility','visible');
+		$('#login-link').unbind('click',getInfoFromServer);
+		$('#login-link').unbind('click',hideLoginBox).bind('click',hideLoginBox);
+		$('#id_username').focus();
+		$('#login-link').css('background','#FFF');
+		$('#login-link').css('border-bottom','1px solid #FFF');
+		$('#login-link').css('border-top','1px solid #000');
+		$('#login-link').css('border-left','1px solid #000');
+		$('#login-link').css('border-right','1px solid #000');
+	}
 
-function getInfoFromServer() {
-	$.ajax({
-		type: "GET",
-		url: "/login/",
-		success: postToPage});
-}
+	function getInfoFromServer() {
+		$.ajax({
+			type: "GET",
+			url: "/login/",
+			success: postToPage});
+	}
 
-$("document").ready(
-	function() {
-		$("abbr.timeago").timeago();
-		$('#login-link').unbind('click',getInfoFromServer).bind('click',getInfoFromServer);
-		$('#adicionar').css('border','0px solid black');
-	});
+	$("document").ready(
+		function() {
+			$("abbr.timeago").timeago();
+			$('#login-link').unbind('click',getInfoFromServer).bind('click',getInfoFromServer);
+			$('#adicionar').css('border','0px solid black');
+		});
 
-</script>
+	</script>
 
 </body>
 </html>
